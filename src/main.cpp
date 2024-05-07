@@ -37,20 +37,25 @@ int main()
             {
                 window.close();
             }
-
-            if(event.type == sf::Event::KeyPressed)
-            {
-                if(event.key.code == sf::Keyboard::D)
-                {
-                    sf::Vector2f position = playerSprite.getPosition();
-                    playerSprite.setPosition(position + sf::Vector2f(10, 0));
-                }
-            }
-
-            window.clear(sf::Color::Black);
-            window.draw(playerSprite);
-            window.display();
         }
+        
+        sf::Vector2f position = playerSprite.getPosition();
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            playerSprite.setPosition(position + sf::Vector2f(1, 0));
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            playerSprite.setPosition(position + sf::Vector2f(-1, 0));
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+            playerSprite.setPosition(position + sf::Vector2f(0, -1));
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            playerSprite.setPosition(position + sf::Vector2f(0, 1));
+
+        window.clear(sf::Color::Black);
+        window.draw(playerSprite);
+        window.display();
     }
 
     return 0;
