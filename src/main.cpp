@@ -43,7 +43,7 @@ int main()
                 if(event.key.code == sf::Keyboard::D)
                 {
                     sf::Vector2f position = playerSprite.getPosition();
-                    playerSprite.setPosition(position + sf::Vector2f(5, 0));
+                    playerSprite.setPosition(position + sf::Vector2f(10, 0));
                 }
             }
 
