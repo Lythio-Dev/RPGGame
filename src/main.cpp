@@ -10,7 +10,7 @@ int main()
     sf::Texture playerTexture;
     sf::Sprite playerSprite;
 
-    if(playerTexture.loadFromFile("Assets/Player/Textures/spritesheet.png"))
+    if(playerTexture.loadFromFile("Assets/Player/Textures/spritesheet2.png"))
     {
         std::cout << "Player images loaded!" << std::endl;
         playerSprite.setTexture(playerTexture);
@@ -18,7 +18,7 @@ int main()
         int XIndex = 0;
         int YIndex = 0;
 
-        playerSprite.setTextureRect(sf::IntRect(XIndex * 64, YIndex * 64, 64, 64));
+        playerSprite.setTextureRect(sf::IntRect(XIndex * 32, YIndex * 32, 32, 32));
         playerSprite.scale(sf::Vector2f(3, 3));
     }
 
@@ -53,7 +53,7 @@ int main()
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             playerSprite.setPosition(position + sf::Vector2f(0, 1));
 
-        window.clear(sf::Color::Black);
+        window.clear(sf::Color(119, 181, 254, 255));
         window.draw(playerSprite);
         window.display();
     }
