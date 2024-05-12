@@ -5,12 +5,35 @@ int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    sf::RenderWindow window(sf::VideoMode(800, 600), "RPG Game", sf::Style::Default, settings);
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
 
+    // Skeleton
+    sf::Texture skeletonTexture;
+    sf::Sprite skeletonSprite;
+
+    if(skeletonTexture.loadFromFile("Assets/Skeleton/Textures/spritesheet.png"))
+    {
+        std::cout << "Skeleton images loaded!" << std::endl;
+        skeletonSprite.setTexture(skeletonTexture);
+        skeletonSprite.setPosition(sf::Vector2f(400, 100));
+
+        int XIndex = 0;
+        int YIndex = 2;
+
+        skeletonSprite.setTextureRect(sf::IntRect(XIndex * 64, YIndex * 64, 64, 64));
+        skeletonSprite.scale(sf::Vector2f(3, 3));
+    }
+
+    else
+    {
+        std::cout << "Skeleton images failed to loaded!" << std::endl;
+    }
+    
+    // Player
     sf::Texture playerTexture;
     sf::Sprite playerSprite;
 
-    if(playerTexture.loadFromFile("Assets/Player/Textures/spritesheet2.png"))
+    if(playerTexture.loadFromFile("Assets/Player/Textures/spritesheet.png"))
     {
         std::cout << "Player images loaded!" << std::endl;
         playerSprite.setTexture(playerTexture);
@@ -18,7 +41,7 @@ int main()
         int XIndex = 0;
         int YIndex = 0;
 
-        playerSprite.setTextureRect(sf::IntRect(XIndex * 32, YIndex * 32, 32, 32));
+        playerSprite.setTextureRect(sf::IntRect(XIndex * 64, YIndex * 64, 64, 64));
         playerSprite.scale(sf::Vector2f(3, 3));
     }
 
@@ -27,6 +50,7 @@ int main()
         std::cout << "Player images failed to loaded!" << std::endl;
     }
 
+    // While loop
     while(window.isOpen())
     {
         sf::Event event; 
@@ -55,6 +79,7 @@ int main()
 
         window.clear(sf::Color(119, 181, 254, 255));
         window.draw(playerSprite);
+        window.draw(skeletonSprite);
         window.display();
     }
 
