@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
+#include "Player.hpp"
 
 // Vector normalizing function
 sf::Vector2f normalizeVector(sf::Vector2f vector)

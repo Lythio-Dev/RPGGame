@@ -10,7 +10,7 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(RPGGame src/main.cpp)
+add_executable(RPGGame src/main.cpp src/Player.cpp)
 target_link_libraries(RPGGame PRIVATE sfml-graphics)
 target_compile_features(RPGGame PRIVATE cxx_std_23)
 
