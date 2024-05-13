@@ -1,11 +1,31 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
+#include <math.h>
 
+// Vector normalizing function
+sf::Vector2f normalizeVector(sf::Vector2f vector)
+{
+    float m = std::sqrt(vector.x * vector.x + vector.y * vector.y);
+
+    sf::Vector2f normalizedVector;
+    normalizedVector.x = vector.x / m;
+    normalizedVector.y = vector.y / m;
+
+    return normalizedVector;
+}
+
+// Main function
 int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "RPG Game", sf::Style::Default, settings);
+
+    // Bullets
+    std::vector<sf::RectangleShape> bullets;
+    sf::Vector2f bulletDirection;
+    float bulletSpeed = 0.5f;
 
     // Skeleton
     sf::Texture skeletonTexture;
@@ -37,6 +57,7 @@ int main()
     {
         std::cout << "Player images loaded!" << std::endl;
         playerSprite.setTexture(playerTexture);
+        playerSprite.setPosition(sf::Vector2f(1300, 800));
 
         int XIndex = 0;
         int YIndex = 0;
@@ -53,7 +74,8 @@ int main()
     // While loop
     while(window.isOpen())
     {
-        sf::Event event; 
+        // Checking for events
+        sf::Event event;
 
         while(window.pollEvent(event))
         {
@@ -62,7 +84,8 @@ int main()
                 window.close();
             }
         }
-        
+
+        // Moving player       
         sf::Vector2f position = playerSprite.getPosition();
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
@@ -76,10 +99,31 @@ int main()
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             playerSprite.setPosition(position + sf::Vector2f(0, 1));
+        
+        // Shooting bullets
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        {
+            bullets.push_back(sf::RectangleShape(sf::Vector2f(30, 30)));
+            bullets[bullets.size() - 1].setFillColor(sf::Color::Black);
+            bullets[bullets.size() - 1].setPosition(playerSprite.getPosition());
+        }
 
+        for(size_t i = 0; i < bullets.size(); i++)
+        {
+            bulletDirection = skeletonSprite.getPosition() - bullets[i].getPosition();
+            bulletDirection = normalizeVector(bulletDirection);
+            bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed);
+        }
+
+        // Drawing on the screen
         window.clear(sf::Color(119, 181, 254, 255));
         window.draw(playerSprite);
         window.draw(skeletonSprite);
+
+        for(size_t i = 0; i < bullets.size(); i++)
+        {
+            window.draw(bullets[i]);
+        }
         window.display();
     }
 

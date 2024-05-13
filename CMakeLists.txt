@@ -12,7 +12,7 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(RPGGame src/main.cpp)
 target_link_libraries(RPGGame PRIVATE sfml-graphics)
-target_compile_features(RPGGame PRIVATE cxx_std_17)
+target_compile_features(RPGGame PRIVATE cxx_std_23)
 
 if(WIN32)
     add_custom_command(
