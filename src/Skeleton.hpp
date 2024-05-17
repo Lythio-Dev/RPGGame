@@ -1,15 +1,10 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include "Skeleton.hpp"
 
-class Player
+class Skeleton
 {
 private:
     sf::Texture texture;
-    std::vector<sf::RectangleShape> bullets;
-    sf::Vector2f bulletDirection;
-    float bulletSpeed = 0.5f;
 
 public:
     sf::Sprite sprite;
@@ -17,7 +12,7 @@ public:
 public:
     void Initialize();
     void Load();
-    void Update(Skeleton& skeleton);
+    void Update();
     void Draw(sf::RenderWindow& window);
 
 };
