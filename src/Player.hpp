@@ -1,6 +1,5 @@
 #pragma once 
 #include <SFML/Graphics.hpp>
-#include <vector>
 #include <iostream>
 #include "Skeleton.hpp"
 
@@ -11,6 +10,9 @@ private:
     std::vector<sf::RectangleShape> bullets;
     sf::Vector2f bulletDirection;
     float bulletSpeed = 0.5f;
+    
+    sf::RectangleShape boundingRectangle;
+    sf::Vector2i size;
 
 public:
     sf::Sprite sprite;

@@ -3,7 +3,11 @@
 
 void Player::Initialize()
 {
+    boundingRectangle.setFillColor(sf::Color::Transparent);
+    boundingRectangle.setOutlineColor(sf::Color::Red);
+    boundingRectangle.setOutlineThickness(3);
 
+    size = sf::Vector2i(64, 64);
 }
 
 void Player::Load()
@@ -17,8 +21,10 @@ void Player::Load()
         int XIndex = 0;
         int YIndex = 0;
 
-        sprite.setTextureRect(sf::IntRect(XIndex * 64, YIndex * 64, 64, 64));
         sprite.scale(sf::Vector2f(3, 3));
+        boundingRectangle.setSize(sf::Vector2f(size.x * sprite.getScale().x, size.y * sprite.getScale().y));
+
+        sprite.setTextureRect(sf::IntRect(XIndex * size.x, YIndex * size.y, size.x, size.y));
     }
 
     else
@@ -58,14 +64,19 @@ void Player::Update(Skeleton& skeleton)
         bulletDirection = Math::normalizeVector(bulletDirection);
         bullets[i].setPosition(bullets[i].getPosition() + bulletDirection * bulletSpeed);
     }
-        
 
-        
+    boundingRectangle.setPosition(sprite.getPosition());
+
+    if(Math::didRectCollide(sprite.getGlobalBounds(), skeleton.sprite.getGlobalBounds()))
+    {
+        std::cout << "COLLISION" << std::endl;
+    }
 }
 
 void Player::Draw(sf::RenderWindow& window)
 {
     window.draw(sprite);
+    window.draw(boundingRectangle);
 
     for(size_t i = 0; i < bullets.size(); i++)
         {
